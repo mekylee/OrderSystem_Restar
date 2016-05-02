@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whitesmoke" >
+       <RelativeLayout
+        android:id="@+id/manage_restara_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/txt_topbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="餐厅管理"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+       <Button
+           android:id="@+id/restar_back_btn"
+           android:layout_width="30dp"
+           android:layout_height="30dp"
+           android:layout_alignBaseline="@+id/txt_topbar"
+           android:layout_alignBottom="@+id/txt_topbar"
+           android:layout_alignParentLeft="true"
+           android:layout_marginLeft="15dp"
+           android:background="@drawable/left_arrow" />
+       
+      
+
+    </RelativeLayout>
+
+       <ImageButton
+           android:id="@+id/imageButton1"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/manage_restara_top_bar"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="18dp"
+           android:src="@drawable/ic_launcher" />
+
+       <RelativeLayout
+           android:id="@+id/resta_name_layout"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:layout_alignParentRight="true"
+           android:layout_below="@+id/imageButton1"
+           android:layout_marginTop="20dp"
+           android:background="@color/white" >
+
+           <TextView
+               android:id="@+id/name_tv"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentLeft="true"
+               android:layout_centerVertical="true"
+               android:layout_marginLeft="30dp"
+               android:text="餐厅名称" />
+           
+        <Button
+            android:id="@+id/name_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+             android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/right_arrow"
+             >
+
+        </Button>
+   
+       </RelativeLayout>
+       
+         <RelativeLayout
+             android:id="@+id/resta_address_layout"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:layout_alignParentRight="true"
+           android:layout_below="@+id/resta_name_layout"
+           android:layout_marginTop="20dp"
+           android:background="@color/white" >
+
+           <TextView
+               android:id="@+id/address_tv"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentLeft="true"
+               android:layout_centerVertical="true"
+               android:layout_marginLeft="30dp"
+               android:text="餐厅地址" />
+             <Button
+            android:id="@+id/address_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+             android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/right_arrow"
+             >
+
+        </Button>
+   
+       </RelativeLayout>
+
+         <RelativeLayout
+             android:id="@+id/resta_phone_layout"
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             android:layout_alignParentLeft="true"
+             android:layout_below="@+id/resta_address_layout"
+             android:layout_marginTop="20dp"
+             android:background="@color/white" >
+
+             <TextView
+                 android:id="@+id/phone_tv"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:layout_centerVertical="true"
+                 android:layout_marginLeft="30dp"
+                 android:text="餐厅电话" />
+               <Button
+            android:id="@+id/phone_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+             android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/right_arrow"
+             >
+
+        </Button>
+         </RelativeLayout>
+      
+</RelativeLayout>
