@@ -43,15 +43,15 @@
            android:layout_alignParentRight="true"
            android:layout_marginRight="15dp"
            android:background="@android:color/transparent"
-           android:text="编辑" 
+           android:text="新增" 
            android:textSize="15sp"
            />
 
     </RelativeLayout>
-    <FrameLayout 
-        android:id="@+id/menu_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/manage_menu_top_bar" />"
+    <ListView 
+        android:id="@+id/menu_listview"
+        android:layout_below="@id/manage_menu_top_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></ListView>
 
 </RelativeLayout>

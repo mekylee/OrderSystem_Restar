@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <resources> 
+    <color name="hulanse">#1E90FF</color><!-- 湖蓝色 -->
     <color name="danhui">#EDEDED</color>
     <color name="mihuangse">#FFB90F</color>
 	<color name="white">#ffffff</color><!--白色 --> 
@@ -147,5 +148,6 @@
 	<color name="mediumblue">#0000cd</color><!--中兰色 --> 
 	<color name="darkblue">#00008b</color><!--暗蓝色 --> 
 	<color name="navy">#000080</color><!--海军色 --> 
-	<color name="black">#000000</color><!--黑色 --> 
+	<color name="black">#000000</color><!--黑色 -->
+	
 </resources>
