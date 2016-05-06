@@ -5,8 +5,7 @@ import java.util.List;
 
 import com.example.ordersytem_rest.R;
 import com.example.ordersytem_rest.adapter.FragmentAdapter;
-import com.example.ordersytem_rest.fragment.Fragment_Bill;
-import com.example.ordersytem_rest.fragment.Fragment_Completed;
+import com.example.ordersytem_rest.fragment.OrderFragment;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -25,21 +24,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class OrderActivity extends FragmentActivity implements OnClickListener{
-	private Button back_btn;  //页面顶部的回退按钮、操作按钮
+	//private Button back_btn;  //页面顶部的回退按钮、操作按钮
 	private ViewPager viewPager;
-	private List<Fragment> fragment_list=new ArrayList<>();
+	private List<Fragment> fragment_list=new ArrayList<Fragment>();
 	private FragmentAdapter fragment_adapter;
-	private Fragment_Completed bill_frag,confirm_frag,dish_confrag,completed_frag;
+	private OrderFragment bill_frag,confirm_frag,dish_confrag,completed_frag;
 	private TextView waitfor_confirm_tv, waitfor_dishes_tv,waitfor_bill_tv,complelted_tv;//各个tab的名字
     private int screen_width;  //屏幕的宽度
     private int current_index;// 当前选中的页卡
     private ImageView tab_line;//tab的导航线
+    private Button back_btn;  //回退到上一页面
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	    requestWindowFeature(Window.FEATURE_NO_TITLE);
 	    setContentView(R.layout.activity_manage_order);
+	   
 	    initial();
 	    initTabLineWidth();
 	    
@@ -48,11 +49,18 @@ public class OrderActivity extends FragmentActivity implements OnClickListener{
     	back_btn=(Button)findViewById(R.id.order_back_btn);
 	    back_btn.setOnClickListener(this);
 	    viewPager=(ViewPager)findViewById(R.id.order_pager);
-	    waitfor_confirm_tv=(TextView)findViewById(R.id.wait_for_confirmed);
-	    waitfor_bill_tv=(TextView)findViewById(R.id.wait_for_bill);
-	    waitfor_dishes_tv=(TextView)findViewById(R.id.completed_tv);
+	    waitfor_confirm_tv=(TextView)findViewById(R.id.waitfor_confirm_tv);
+	    waitfor_bill_tv=(TextView)findViewById(R.id.waitfor_bill_tv);
+	    waitfor_dishes_tv=(TextView)findViewById(R.id.wairfor_dishes_tv);
+	    complelted_tv=(TextView)findViewById(R.id.completed_tv);
 	    tab_line=(ImageView)findViewById(R.id.tab_line);
-	    completed_frag=new Fragment_Completed();
+	    bill_frag=new OrderFragment();
+	    confirm_frag=new OrderFragment();
+	    dish_confrag=new OrderFragment();
+	    completed_frag=new OrderFragment();
+	    fragment_list.add(confirm_frag);
+	    fragment_list.add(dish_confrag);
+	    fragment_list.add(bill_frag);
 	    fragment_list.add(completed_frag);
 	    fragment_adapter =new FragmentAdapter(this.getSupportFragmentManager(), fragment_list);
 	    viewPager.setAdapter(fragment_adapter);
@@ -62,18 +70,19 @@ public class OrderActivity extends FragmentActivity implements OnClickListener{
 			@Override
 			public void onPageSelected(int arg0) {
 				// TODO Auto-generated method stub
+				resetTextView();
 				switch(arg0){
 				case 0:
-					waitfor_confirm_tv.setTextColor(Color.BLUE);
+					waitfor_confirm_tv.setTextColor(getResources().getColor(R.color.hulanse));
 					break;
 				case 1:
-					waitfor_dishes_tv.setTextColor(Color.BLUE);
+					waitfor_dishes_tv.setTextColor(getResources().getColor(R.color.hulanse));
 					break;
 				case 2:
-					waitfor_bill_tv.setTextColor(Color.BLUE);
+					waitfor_bill_tv.setTextColor(getResources().getColor(R.color.hulanse));
 					break;
 				case 3:
-					complelted_tv.setTextColor(Color.BLUE);
+					complelted_tv.setTextColor(getResources().getColor(R.color.hulanse));
 					break;
 				}
 				current_index=arg0;
@@ -131,9 +140,18 @@ public class OrderActivity extends FragmentActivity implements OnClickListener{
                 .getMetrics(dpMetrics);  
         
         screen_width = dpMetrics.widthPixels;  
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tab_line  .getLayoutParams();  
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tab_line.getLayoutParams();  
         lp.width = screen_width / 4;  
         tab_line.setLayoutParams(lp);  
+    }  
+    /** 
+     * 重置颜色 
+     */  
+    private void resetTextView() {  
+        complelted_tv.setTextColor(Color.BLACK);  
+        waitfor_bill_tv.setTextColor(Color.BLACK);  
+        waitfor_confirm_tv.setTextColor(Color.BLACK);  
+        waitfor_dishes_tv.setTextColor(Color.BLACK);  
     }  
 	@Override
 	public void onClick(View arg0) {

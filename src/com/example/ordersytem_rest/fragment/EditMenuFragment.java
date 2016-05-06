@@ -1,4 +1,4 @@
-package com.example.ordersytem_rest.activity;
+package com.example.ordersytem_rest.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
