@@ -1,4 +1,4 @@
-package com.example.ordersytem_rest.activity;
+package com.example.ordersystem_rest.utils;
 import com.example.ordersytem_rest.R;
 
 import android.app.Dialog;

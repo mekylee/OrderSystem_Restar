@@ -5,7 +5,10 @@ import java.util.List;
 
 import com.example.ordersytem_rest.R;
 import com.example.ordersytem_rest.adapter.FragmentAdapter;
-import com.example.ordersytem_rest.fragment.OrderFragment;
+import com.example.ordersytem_rest.fragment.CompletedFragment;
+import com.example.ordersytem_rest.fragment.WaitConfirmFragment;
+import com.example.ordersytem_rest.fragment.WaitBillFragment;
+import com.example.ordersytem_rest.fragment.WaitDishesFragment;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -28,7 +31,10 @@ public class OrderActivity extends FragmentActivity implements OnClickListener{
 	private ViewPager viewPager;
 	private List<Fragment> fragment_list=new ArrayList<Fragment>();
 	private FragmentAdapter fragment_adapter;
-	private OrderFragment bill_frag,confirm_frag,dish_confrag,completed_frag;
+	private WaitConfirmFragment confirm_frag;
+	private WaitBillFragment bill_frag;
+	private WaitDishesFragment dish_frag;
+	private CompletedFragment completed_frag;
 	private TextView waitfor_confirm_tv, waitfor_dishes_tv,waitfor_bill_tv,complelted_tv;//各个tab的名字
     private int screen_width;  //屏幕的宽度
     private int current_index;// 当前选中的页卡
@@ -54,12 +60,12 @@ public class OrderActivity extends FragmentActivity implements OnClickListener{
 	    waitfor_dishes_tv=(TextView)findViewById(R.id.wairfor_dishes_tv);
 	    complelted_tv=(TextView)findViewById(R.id.completed_tv);
 	    tab_line=(ImageView)findViewById(R.id.tab_line);
-	    bill_frag=new OrderFragment();
-	    confirm_frag=new OrderFragment();
-	    dish_confrag=new OrderFragment();
-	    completed_frag=new OrderFragment();
+	    bill_frag=new WaitBillFragment();
+	    confirm_frag=new WaitConfirmFragment();
+	    dish_frag=new WaitDishesFragment();
+	    completed_frag=new CompletedFragment();
 	    fragment_list.add(confirm_frag);
-	    fragment_list.add(dish_confrag);
+	    fragment_list.add(dish_frag);
 	    fragment_list.add(bill_frag);
 	    fragment_list.add(completed_frag);
 	    fragment_adapter =new FragmentAdapter(this.getSupportFragmentManager(), fragment_list);

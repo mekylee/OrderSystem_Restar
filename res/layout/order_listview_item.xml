@@ -2,7 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    >
+    <RelativeLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        >
+
+    <TextView
+        android:id="@+id/ordertime_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:text="2015-06-07 11:00:09" />
 
     <TextView
         android:id="@+id/ordernumber_tv"
@@ -10,28 +24,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="36dp"
-        android:text="textview" />
-
-    <TextView
-        android:id="@+id/ordertime_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ordernumber_tv"
-        android:layout_alignBottom="@+id/ordernumber_tv"
-        android:layout_marginLeft="33dp"
-        android:layout_toRightOf="@+id/ordernumber_tv"
-        android:text="TextView" />
+        android:layout_marginLeft="14dp"
+        android:paddingTop="5dp"
+        android:text="00004" />
 
     <Button
         android:id="@+id/op_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ordertime_tv"
-        android:layout_alignBottom="@+id/ordertime_tv"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="34dp"
-        android:text="Button" />
+        android:layout_alignTop="@+id/ordertime_tv"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/btn_shape"
+        android:text="确认"
+        android:textSize="13dp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

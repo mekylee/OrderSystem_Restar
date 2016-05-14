@@ -5,7 +5,8 @@ import java.util.List;
 
 import com.example.ordersytem_rest.R;
 import com.example.ordersytem_rest.adapter.FragmentAdapter;
-import com.example.ordersytem_rest.fragment.FragmentStatistics;
+import com.example.ordersytem_rest.fragment.FragmentStatisticsDay;
+import com.example.ordersytem_rest.fragment.FragmentStatisticsMonth;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -29,8 +30,8 @@ public class StatisticActivity extends FragmentActivity implements OnClickListen
 	private List<Fragment> fragment_list=new ArrayList<Fragment>();
 	private FragmentAdapter fragmentAdapter;
 	private ViewPager viewPager;
-	private FragmentStatistics statistic_by_day_fragment;
-	private FragmentStatistics statistic_by_month_fragment;
+	private FragmentStatisticsDay statistic_by_day_fragment;
+	private FragmentStatisticsMonth statistic_by_month_fragment;
 	/*
 	 * Tab显示的内容
 	 */
@@ -51,6 +52,7 @@ public class StatisticActivity extends FragmentActivity implements OnClickListen
     protected void onCreate(Bundle arg0) {
     	// TODO Auto-generated method stub
     	super.onCreate(arg0);
+    	requestWindowFeature(Window.FEATURE_NO_TITLE);
     	setContentView(R.layout.activity_statics);
     	findById();
     	init();
@@ -75,8 +77,9 @@ public class StatisticActivity extends FragmentActivity implements OnClickListen
 				finish();
 			}
 		});
-    	 statistic_by_day_fragment =new FragmentStatistics();
-    	 statistic_by_month_fragment=new FragmentStatistics();
+    	 statistic_by_day_fragment =new FragmentStatisticsDay();
+    	 statistic_by_month_fragment=new FragmentStatisticsMonth();
+    	 
     	 fragment_list.add(statistic_by_day_fragment);
     	 fragment_list.add(statistic_by_month_fragment);
     	

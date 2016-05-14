@@ -39,32 +39,23 @@
 
     </RelativeLayout>
 
-       <ImageButton
-           android:id="@+id/imageButton1"
+       <ImageView
+           android:id="@+id/imageView1"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_below="@+id/manage_restara_top_bar"
            android:layout_centerHorizontal="true"
            android:layout_marginTop="18dp"
-           android:src="@drawable/ic_launcher" />
+           android:src="@drawable/app_icon" />
 
        <RelativeLayout
            android:id="@+id/resta_name_layout"
            android:layout_width="match_parent"
            android:layout_height="50dp"
            android:layout_alignParentRight="true"
-           android:layout_below="@+id/imageButton1"
+           android:layout_below="@+id/imageView1"
            android:layout_marginTop="20dp"
            android:background="@color/white" >
-
-           <TextView
-               android:id="@+id/name_tv"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignParentLeft="true"
-               android:layout_centerVertical="true"
-               android:layout_marginLeft="30dp"
-               android:text="餐厅名称" />
            
         <Button
             android:id="@+id/name_btn"
@@ -77,26 +68,35 @@
              >
 
         </Button>
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/name_btn"
+            android:layout_marginLeft="10dp"
+            android:text="餐厅名称" />
+
+        <TextView
+            android:id="@+id/rest_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/name_tv"
+            android:layout_alignBottom="@+id/name_tv"
+            android:layout_centerHorizontal="true"
+            android:text="xxxxx" />
    
        </RelativeLayout>
        
          <RelativeLayout
-             android:id="@+id/resta_address_layout"
+            android:id="@+id/resta_address_layout"
            android:layout_width="match_parent"
            android:layout_height="50dp"
            android:layout_alignParentRight="true"
            android:layout_below="@+id/resta_name_layout"
            android:layout_marginTop="20dp"
            android:background="@color/white" >
-
-           <TextView
-               android:id="@+id/address_tv"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignParentLeft="true"
-               android:layout_centerVertical="true"
-               android:layout_marginLeft="30dp"
-               android:text="餐厅地址" />
              <Button
             android:id="@+id/address_btn"
             android:layout_width="20dp"
@@ -108,6 +108,23 @@
              >
 
         </Button>
+
+             <TextView
+                 android:id="@+id/address_tv"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:layout_centerVertical="true"
+                 android:layout_marginLeft="10dp"
+                 android:text="餐厅地址" />
+
+             <TextView
+                 android:id="@+id/address"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignTop="@+id/address_btn"
+                 android:layout_centerHorizontal="true"
+                 android:text="xxxxxx" />
    
        </RelativeLayout>
 
@@ -126,7 +143,7 @@
                  android:layout_height="wrap_content"
                  android:layout_alignParentLeft="true"
                  android:layout_centerVertical="true"
-                 android:layout_marginLeft="30dp"
+                 android:layout_marginLeft="10dp"
                  android:text="餐厅电话" />
                <Button
             android:id="@+id/phone_btn"
@@ -139,6 +156,15 @@
              >
 
         </Button>
+
+               <TextView
+                   android:id="@+id/phone"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignBottom="@+id/phone_btn"
+                   android:layout_centerHorizontal="true"
+                   android:text="xxxxxxx" />
+
          </RelativeLayout>
       
 </RelativeLayout>
