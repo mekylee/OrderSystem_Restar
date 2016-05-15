@@ -1,8 +1,11 @@
 package com.example.ordersytem_rest.activity;
 
+import com.example.ordersystem_rest.utils.NetworkReceiver;
 import com.example.ordersytem_rest.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +21,7 @@ public class MainActivity extends Activity implements OnClickListener{
     private Button resta_btn,go_resta_btn;
     private Button statistic_btn,go_statistic_btn;
     private Button user_btn,go_user_btn;
-
+    private NetworkReceiver networkReceiver;
  
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,4 +112,20 @@ public class MainActivity extends Activity implements OnClickListener{
 	    		  break;
 	   }
 	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		networkReceiver =new NetworkReceiver();
+		registerReceiver(networkReceiver, filter);
+	}
+	
+     @Override
+    protected void onPause() {
+    	// TODO Auto-generated method stub
+    	super.onPause();
+    	unregisterReceiver(networkReceiver);  
+    }
 }

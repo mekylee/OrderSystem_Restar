@@ -20,8 +20,7 @@
         android:theme="@android:style/Theme.Holo.Light.NoActionBar" 
       >
         <activity
-            android:name="com.example.ordersytem_rest.activity.MainActivity"
-         
+            android:name="com.example.ordersytem_rest.activity.MainActivity" 
           >
         </activity>
         <activity android:name="com.example.ordersytem_rest.activity.LoginActivity">
@@ -30,7 +29,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
         </activity>
         <activity android:name="com.example.ordersytem_rest.activity.ResetPassActivity"></activity>
         <activity android:name="com.example.ordersytem_rest.activity.CusienActivity"></activity>
@@ -39,6 +37,11 @@
         <activity android:name="com.example.ordersytem_rest.activity.StatisticActivity"></activity>
         <activity android:name="com.example.ordersytem_rest.activity.RestaurantActivity"></activity>
         <activity android:name="com.example.ordersytem_rest.activity.OrderActivity"></activity>
+        
+        <activity android:name="com.example.ordersystem_rest.utils.test">
+            
+            
+        </activity>
         <receiver
             android:name="com.example.ordersystem_rest.utils.NetworkReceiver"
             android:label="NetwordkConnetction" >

@@ -16,6 +16,7 @@ import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.example.ordersystem_rest.utils.AVService;
 import com.example.ordersystem_rest.utils.CustomDialog;
+import com.example.ordersystem_rest.utils.NetworkReceiver;
 import com.example.ordersytem_rest.R;
 import com.example.ordersytem_rest.adapter.MenuAdapter;
 import com.example.ordersytem_rest.adapter.UserAdapter;
@@ -25,6 +26,8 @@ import com.example.ordersytem_rest.entity.User;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +48,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class UserActivity extends Activity implements OnClickListener,OnItemClickListener{
+	private NetworkReceiver networkReceiver;
 	private Button back_btn;
 	private ListView listview;
 	private volatile List<User> users;
@@ -310,19 +314,20 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 		    	
 		 }
 	}
-	
-	/**
-	 * 删除用户
-	 * @throws AVException 
-	 */
-	public void deleteUser(AVUser user) throws AVException{
-	    user.delete();
+
+    @Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		networkReceiver =new NetworkReceiver();
+		registerReceiver(networkReceiver, filter);
 	}
-	 /**
-	  * 修改用户
-	  */
-    public void modifyUser(AVUser user,String username){
-    	user.put("username", username);
-    	
+	
+     @Override
+    protected void onPause() {
+    	// TODO Auto-generated method stub
+    	super.onPause();
+    	unregisterReceiver(networkReceiver);  
     }
 }  

@@ -21,11 +21,12 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogUtil.log;
 import com.avos.avoscloud.RequestPasswordResetCallback;
 import com.example.ordersystem_rest.customview.CleanableEditText;
+import com.example.ordersystem_rest.utils.NetworkReceiver;
 import com.example.ordersytem_rest.R;
 public class ResetPassActivity extends Activity implements OnClickListener{
 	private Button reset_btn,back_btn;
 	private CleanableEditText email;
-//	private NetworkReceiver networkReceiver;
+	private NetworkReceiver networkReceiver;
 //	util util=new util();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class ResetPassActivity extends Activity implements OnClickListener{
 	   	 Matcher m = p.matcher(email);
 	   	 return m.matches();
 	    }
-/*	
+	
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
@@ -100,6 +101,6 @@ public class ResetPassActivity extends Activity implements OnClickListener{
     	super.onPause();
     	unregisterReceiver(networkReceiver);  
     }
-	*/
+	
 
 }

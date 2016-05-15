@@ -15,6 +15,7 @@ import com.avos.avoscloud.ProgressCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.LogUtil.log;
 import com.example.ordersystem_rest.utils.CustomDialog;
+import com.example.ordersystem_rest.utils.NetworkReceiver;
 import com.example.ordersytem_rest.R;
 import com.example.ordersytem_rest.adapter.CusineAdapter;
 import com.example.ordersytem_rest.entity.Cusine;
@@ -26,6 +27,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -43,6 +46,7 @@ import android.widget.Toast;
 public class CusienActivity extends Activity implements OnClickListener,OnItemClickListener{
 	private Button back_btn,edit_btn;
 	private ListView listview;
+    private NetworkReceiver networkReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	// TODO Auto-generated method stub
@@ -50,6 +54,22 @@ public class CusienActivity extends Activity implements OnClickListener,OnItemCl
     	requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_manage_cusine);
         initialView();
+    }
+    
+    @Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		networkReceiver =new NetworkReceiver();
+		registerReceiver(networkReceiver, filter);
+	}
+	
+     @Override
+    protected void onPause() {
+    	// TODO Auto-generated method stub
+    	super.onPause();
+    	unregisterReceiver(networkReceiver);  
     }
     private void initialView(){
     	back_btn=(Button)findViewById(R.id.cusine_back_btn);

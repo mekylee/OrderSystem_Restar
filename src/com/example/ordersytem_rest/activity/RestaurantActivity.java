@@ -6,6 +6,7 @@ import java.util.List;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.SaveCallback;
 import com.example.ordersystem_rest.utils.AVService;
+import com.example.ordersystem_rest.utils.NetworkReceiver;
 import com.example.ordersytem_rest.R;
 import com.example.ordersytem_rest.adapter.MenuAdapter;
 import com.example.ordersytem_rest.entity.Restaurant;
@@ -13,6 +14,8 @@ import com.example.ordersytem_rest.entity.Restaurant;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RestaurantActivity extends Activity  implements OnClickListener{
+	private NetworkReceiver networkReceiver;
 	private RelativeLayout name_rl,phone_rl,address_rl;
 	private Button name_btn,phone_btn,address_btn,back_btn;
 	private TextView name_tv,phone_tv,address_tv;
@@ -197,4 +201,23 @@ public class RestaurantActivity extends Activity  implements OnClickListener{
 			    break;
 		}
 	}
+	
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		networkReceiver =new NetworkReceiver();
+		registerReceiver(networkReceiver, filter);
+	}
+	
+     @Override
+    protected void onPause() {
+    	// TODO Auto-generated method stub
+    	super.onPause();
+    	unregisterReceiver(networkReceiver);  
+    }
+	
+
 }

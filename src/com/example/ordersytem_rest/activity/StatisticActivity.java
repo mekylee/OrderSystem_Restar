@@ -3,13 +3,16 @@ package com.example.ordersytem_rest.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.ordersystem_rest.utils.NetworkReceiver;
 import com.example.ordersytem_rest.R;
 import com.example.ordersytem_rest.adapter.FragmentAdapter;
 import com.example.ordersytem_rest.fragment.FragmentStatisticsDay;
 import com.example.ordersytem_rest.fragment.FragmentStatisticsMonth;
 
 import android.app.Activity;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -26,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class StatisticActivity extends FragmentActivity implements OnClickListener{
+	private NetworkReceiver networkReceiver;
 	private Button back_btn;
 	private List<Fragment> fragment_list=new ArrayList<Fragment>();
 	private FragmentAdapter fragmentAdapter;
@@ -162,4 +166,24 @@ public class StatisticActivity extends FragmentActivity implements OnClickListen
 		// TODO Auto-generated method stub
 		this.finish();
 	}
+	
+	
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		networkReceiver =new NetworkReceiver();
+		registerReceiver(networkReceiver, filter);
+	}
+	
+     @Override
+    protected void onPause() {
+    	// TODO Auto-generated method stub
+    	super.onPause();
+    	unregisterReceiver(networkReceiver);  
+    }
+	
+
 }

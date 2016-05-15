@@ -3,6 +3,7 @@ package com.example.ordersytem_rest.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.ordersystem_rest.utils.NetworkReceiver;
 import com.example.ordersytem_rest.R;
 import com.example.ordersytem_rest.adapter.FragmentAdapter;
 import com.example.ordersytem_rest.fragment.CompletedFragment;
@@ -11,7 +12,9 @@ import com.example.ordersytem_rest.fragment.WaitBillFragment;
 import com.example.ordersytem_rest.fragment.WaitDishesFragment;
 
 import android.app.Activity;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -28,6 +31,7 @@ import android.widget.TextView;
 
 public class OrderActivity extends FragmentActivity implements OnClickListener{
 	//private Button back_btn;  //页面顶部的回退按钮、操作按钮
+	 private NetworkReceiver networkReceiver;
 	private ViewPager viewPager;
 	private List<Fragment> fragment_list=new ArrayList<Fragment>();
 	private FragmentAdapter fragment_adapter;
@@ -51,6 +55,23 @@ public class OrderActivity extends FragmentActivity implements OnClickListener{
 	    initTabLineWidth();
 	    
     }
+	
+	
+	 @Override
+		protected void onResume() {
+			// TODO Auto-generated method stub
+			super.onResume();
+			IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+			networkReceiver =new NetworkReceiver();
+			registerReceiver(networkReceiver, filter);
+		}
+		
+	     @Override
+	    protected void onPause() {
+	    	// TODO Auto-generated method stub
+	    	super.onPause();
+	    	unregisterReceiver(networkReceiver);  
+	    }
     public void initial(){
     	back_btn=(Button)findViewById(R.id.order_back_btn);
 	    back_btn.setOnClickListener(this);

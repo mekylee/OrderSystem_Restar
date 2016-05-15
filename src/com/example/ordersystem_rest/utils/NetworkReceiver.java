@@ -10,8 +10,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.SweepGradient;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -28,7 +30,7 @@ public class NetworkReceiver extends BroadcastReceiver {
 	           AlertDialog.Builder builder=new AlertDialog.Builder(context);
 	           builder.setIcon(R.drawable.wifi);
 	           builder.setTitle("网络提示");
-	           builder.setMessage("是否设置网络？");
+	           builder.setMessage("网络断开，请检查网络状态");
 	           builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 				
 				@Override
@@ -42,17 +44,17 @@ public class NetworkReceiver extends BroadcastReceiver {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					 Intent intent=new Intent("/");
-					 ComponentName comp=new ComponentName("com.android.settings","com.android.settings.WirlessSettings");
-					 intent.setComponent(comp);
-					 intent.setAction("android.intent.action.VIEW");
-					 context.startActivity(intent);
+					 Intent i=new Intent(Settings.ACTION_WIFI_SETTINGS);
+					 context.startActivity(i);
+					 Log.d("tag", "跳转到设置网络页面");
 				}
 			});
 	           builder.create().show();
 	         
+	           
 	       }
 	       else {
+	    	  
 	    	   Log.i("tag", "网络正常"+intent.toString());
 	       }
 	}

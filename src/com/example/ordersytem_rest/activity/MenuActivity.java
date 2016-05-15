@@ -15,6 +15,7 @@ import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.LogUtil.log;
 import com.example.ordersystem_rest.utils.AVService;
 import com.example.ordersystem_rest.utils.CustomDialog;
+import com.example.ordersystem_rest.utils.NetworkReceiver;
 import com.example.ordersytem_rest.R;
 import com.example.ordersytem_rest.adapter.MenuAdapter;
 import com.example.ordersytem_rest.entity.Menu;
@@ -27,6 +28,8 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 @AVClassName("Menu")
 public class MenuActivity extends Activity implements OnClickListener,OnItemClickListener{
+    private NetworkReceiver networkReceiver;
 	private Button back_btn,edit_btn;
 	private ListView list_view;
 	private static final String TAG=MenuActivity.class.getName();
@@ -93,6 +97,22 @@ public class MenuActivity extends Activity implements OnClickListener,OnItemClic
         initialView();
         new RemoteDataTask().execute();
     }
+	
+	 @Override
+		protected void onResume() {
+			// TODO Auto-generated method stub
+			super.onResume();
+			IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+			networkReceiver =new NetworkReceiver();
+			registerReceiver(networkReceiver, filter);
+		}
+		
+	     @Override
+	    protected void onPause() {
+	    	// TODO Auto-generated method stub
+	    	super.onPause();
+	    	unregisterReceiver(networkReceiver);  
+	    }
     private void initialView(){
     	back_btn=(Button)findViewById(R.id.menu_back_btn);
     	edit_btn=(Button)findViewById(R.id.editmenu_btn);	
