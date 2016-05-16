@@ -55,6 +55,8 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 	private List<String> usertypeList;
 	private UserAdapter userAdapter;
 	private Button add_btn;
+	private Spinner sp_usertype;
+	private String user_type;
     private  class RemoeDataTask extends AsyncTask<Void, Void, Void>{
 
 		@Override
@@ -105,6 +107,8 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 		new RemoeDataTask().execute();
 		back_btn.setOnClickListener(this);
 		listview.setOnItemClickListener(this);
+		add_btn=(Button)findViewById(R.id.adduser_btn);
+		add_btn.setOnClickListener(this);
 	}
 	
 	
@@ -115,23 +119,43 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 		case R.id.user_back_btn:
 			this.finish();
 			break;
-		case R.id.edituser_btn:
-			 
+		case R.id.adduser_btn:
 			  View dialogView=LayoutInflater.from(UserActivity.this).inflate(R.layout.dialog, null);
-			   final EditText ed_username=(EditText) dialogView.findViewById(R.id.ed_username);
-			   final Spinner sp_usertype=(Spinner)dialogView.findViewById(R.id.spinner_usertype);
-			   sp_usertype.setAdapter(new ArrayAdapter<String>(UserActivity.this,android.R.layout.simple_spinner_item, getUserType()));
-			   ed_username.setHint("请输入邮箱地址");
+			  final EditText ed_username=(EditText) dialogView.findViewById(R.id.ed_username);
+			  ed_username.setHint("请输入邮箱地址");
+			 
+			  sp_usertype=(Spinner)dialogView.findViewById(R.id.spinner_usertype);
+			  usertypeList=getUserType();   //获取用户类型列表
+			   sp_usertype.setAdapter(new ArrayAdapter<String>(UserActivity.this,android.R.layout.simple_spinner_dropdown_item, usertypeList));
+			   String type=(String) sp_usertype.getSelectedItem();
+			   Log.d("tag", "获取到的用户类型为:"+type);
+			   //获取下拉列表的数据
+			   sp_usertype.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					// TODO Auto-generated method stub
+					user_type=(String) sp_usertype.getSelectedItem();
+					Log.d("tag", "新增的用户类型为："+user_type);
+					//如果选择的是顾客，为顾客分配顾客角色；如果选择的是经理，为经理分配角色；如果选择的是服务员，为经理分配经理角色
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 			   new AlertDialog.Builder(this)
 			   .setTitle("新增用户")
-			   .setIcon(R.drawable.app_icon)
+			   .setIcon(R.drawable.profile_img)
 			   .setView(dialogView)
 			   .setPositiveButton("确定", new  DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface arg0, int arg1) {
 					// TODO Auto-generated method stub
-					/*AVService.createUser(ed_username.getText().toString(),usertype,new SaveCallback() {
+					AVService.createUser(ed_username.getText().toString(),user_type,new SaveCallback() {
 						
 						@Override
 						public void done(AVException arg0) {
@@ -142,14 +166,14 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 								//MenuAdapter adapter=(MenuAdapter) list_view.getAdapter();
 								User user =new User();
 								user.setUsername(ed_username.getText().toString());
-								user.setUserType(usertype);
+								user.setUserType(user_type);
 								users.add(user);
 								userAdapter.notifyDataSetChanged();
 							}else{
 								Log.d("修改失败：", arg0.toString());
 							}
 						}
-					});*/
+					});
 				}
 			})
 			   .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -166,7 +190,7 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 	
 	}
 	
-	//为用户类型下拉列表添加
+	//为用户类型下拉列表添加数据
 	public List<String> getUserType(){
 	      List<String> usertype_list=new ArrayList<String>();
 	      usertype_list.add("顾客");
@@ -193,7 +217,8 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 		   final EditText ed_username=(EditText) dialogView.findViewById(R.id.ed_username);
 		   final Spinner sp_usertype=(Spinner)dialogView.findViewById(R.id.spinner_usertype);
 		   ed_username.setText(username);
-		   sp_usertype.setAdapter(new ArrayAdapter<String>(UserActivity.this,android.R.layout.simple_spinner_item, getUserType()));
+		   usertypeList=getUserType();
+		   sp_usertype.setAdapter(new ArrayAdapter<String>(UserActivity.this,android.R.layout.simple_spinner_dropdown_item, usertypeList));
 		   sp_usertype.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -201,9 +226,9 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 					int position, long id) {
 				// TODO Auto-generated method stub
 				//获取到所选择的内容
-				 String type=sp_usertype.getSelectedItem().toString();
-				Toast.makeText(UserActivity.this,"选择后的用户类型为："+type,Toast.LENGTH_SHORT);
-				Log.d("tag", "选择后的用户类型为："+type);
+				user_type=(String) sp_usertype.getItemAtPosition(position);
+				Toast.makeText(UserActivity.this,"选择后的用户类型为："+user_type,Toast.LENGTH_SHORT);
+				Log.d("tag", "选择后的用户类型为："+usertype);
 			}
 
 			@Override

@@ -35,7 +35,7 @@
            android:background="@drawable/left_arrow" />
        
         <Button
-           android:id="@+id/edituser_btn"
+           android:id="@+id/adduser_btn"
            android:layout_width="50dp"
            android:layout_height="30dp"
            android:layout_alignBaseline="@+id/txt_topbar"
