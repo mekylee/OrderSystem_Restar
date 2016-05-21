@@ -37,10 +37,10 @@
         <activity android:name="com.example.ordersytem_rest.activity.StatisticActivity"></activity>
         <activity android:name="com.example.ordersytem_rest.activity.RestaurantActivity"></activity>
         <activity android:name="com.example.ordersytem_rest.activity.OrderActivity"></activity>
-        
+        <activity android:name="com.example.ordersytem_rest.activity.EditCusineActivity"></activity>
+        <activity android:name="com.example.ordersytem_rest.activity.AddCusineActivity"></activity>
         <activity android:name="com.example.ordersystem_rest.utils.test">
-            
-            
+              
         </activity>
         <receiver
             android:name="com.example.ordersystem_rest.utils.NetworkReceiver"

@@ -1,11 +1,14 @@
 package com.example.ordersystem_rest.utils;
 
+import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVDeleteOption;
@@ -17,9 +20,12 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.DeleteCallback;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.GetCallback;
+import com.avos.avoscloud.GetDataCallback;
+import com.avos.avoscloud.ProgressCallback;
 import com.avos.avoscloud.LogUtil.log;
 import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.search.AVSearchQuery;
+import com.example.ordersytem_rest.activity.AddCusineActivity;
 import com.example.ordersytem_rest.entity.Comment;
 import com.example.ordersytem_rest.entity.Cusine;
 import com.example.ordersytem_rest.entity.Menu;
@@ -159,10 +165,12 @@ public class AVService {
 	}
 	
 	//创建新的用户
-	public static void createUser(String username ,String usertype,SaveCallback saveCallback){
+	public static void createUser(String username ,String password,String usertype,SaveCallback saveCallback){
 		User user=new User();
 		user.setUsername(username);
+		user.setEmail(username);
 		user.setUserType(usertype);
+		user.setPassword(password);
 		//异步保存
 		user.saveInBackground(saveCallback);
 			
@@ -258,7 +266,7 @@ public class AVService {
 				}
 	}
 	
-	//创建或更新订单
+	//创建订单
 	public static void createOrder(User user, Integer number_of_person,
 	   SaveCallback saveCallback) {
 		Order order=new Order();
@@ -331,12 +339,26 @@ public class AVService {
 				cusine.setObjectId(objectId);
 			}
 			cusine.setCusineType(menu);
-			cusine.setCusineNumber(cusine_name);
+			cusine.setCusineName(cusine_name);
 			cusine.setCusineImage(cusine_image);
 			cusine.setPrice(price);
 			//异步保存
 			cusine.saveInBackground(saveCallback);
 		}
+		
+		//创建菜品
+		public static void createCusine(Menu menu, AVFile image,String cusine_name,int price,
+		   SaveCallback saveCallback) {
+			Cusine cusine=new Cusine();
+			cusine.setCusineImage(image);
+			cusine.setCusineType(menu);
+			cusine.setCusineName(cusine_name);
+			cusine.setPrice(price);
+			// 异步保存
+			cusine.saveInBackground(saveCallback);
+
+		}
+
 	
 	//根据objectId删除菜品
 		public static void deleteCusineById(String objectId) {
@@ -359,6 +381,65 @@ public class AVService {
 			}
 		}
 	
+		 //上传图片到LeanCloud
+    public static AVFile upLoadImage(String image_name,String local_path){
+		try {
+			final AVFile image = AVFile.withAbsoluteLocalPath(image_name,
+					Environment.getExternalStorageDirectory() + local_path);
+			image.saveInBackground(new SaveCallback() {
+
+				@Override
+				public void done(AVException arg0) {
+					// TODO Auto-generated method stub
+					if (arg0 == null) {
+						// 上传成功，提示
+						Log.i("tag", "图片上传成功："+image.getUrl());
+						
+					} else {
+						Log.e("error", arg0.toString());
+					}
+				}
+			}, new ProgressCallback() { // 进度
+
+						@Override
+						public void done(Integer arg0) {
+							// TODO Auto-generated method stub
+							Log.i("tag", "图片上传进度为:" + arg0);
+						}
+					});
+			return image;
+		
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			Log.i("tag",e.toString());
+			e.printStackTrace();
+		}
+		
+		return null;
+	
+		
+	}
+    
+    //下载图片
+    public static void downloadImage(AVFile image){
+    	image.getDataInBackground(new GetDataCallback() {
+			
+			@Override
+			public void done(byte[] arg0, AVException arg1) {
+				// TODO Auto-generated method stub
+				//bytes就是文件的数据流
+			}
+		}, new ProgressCallback() {
+			
+			@Override
+			public void done(Integer arg0) {
+				// TODO Auto-generated method stub
+				//下载进度
+				Log.i("tag", "下载进度为："+arg0);
+			}
+		});
+    }
+		
 	/*
 	 * 对数据库洪的评论进行增删查改
 	 */

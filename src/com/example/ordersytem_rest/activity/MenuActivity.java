@@ -1,5 +1,7 @@
 package com.example.ordersytem_rest.activity;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -57,7 +60,9 @@ public class MenuActivity extends Activity implements OnClickListener,OnItemClic
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
+			//从Leancloud中获取菜单数据，然后保存在本地
 			menus=AVService.findMenus();
+			
 			return null;
 		}
 		@Override
@@ -83,6 +88,12 @@ public class MenuActivity extends Activity implements OnClickListener,OnItemClic
 			}else{
 				empty.setVisibility(View.VISIBLE);
 			}
+			SharedPreferences.Editor ed=getSharedPreferences("menu", MODE_WORLD_WRITEABLE).edit();
+			for(int i=0;i<menus.size();i++){
+				ed.putString("menu_name",menus.get(i).getMenuName());
+			}
+		    ed.commit();
+		    Log.i("tag", "从网络中得到的菜单名为："+menus.toString());
 			super.onPostExecute(result);
 		}
 		

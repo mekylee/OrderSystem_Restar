@@ -1,7 +1,9 @@
 package com.example.ordersytem_rest.activity;
 
+import com.avos.avoscloud.AVUser;
 import com.example.ordersystem_rest.utils.NetworkReceiver;
 import com.example.ordersytem_rest.R;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener{
     //private RelativeLayout menu_layout,cusine_layout,order_layout,restar_layout,statstic_layout,user_layout;
@@ -21,8 +24,8 @@ public class MainActivity extends Activity implements OnClickListener{
     private Button resta_btn,go_resta_btn;
     private Button statistic_btn,go_statistic_btn;
     private Button user_btn,go_user_btn;
+    private Button logout_btn;
     private NetworkReceiver networkReceiver;
- 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,6 +53,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		go_resta_btn=(Button)findViewById(R.id.go_restaraunt_btn);
 		go_statistic_btn=(Button)findViewById(R.id.go_statistic_btn);
 		go_user_btn=(Button)findViewById(R.id.go_user_btn);
+		logout_btn=(Button)findViewById(R.id.logout_btn);
 	/*	menu_layout.setOnClickListener(this);
 		cusine_layout.setOnClickListener(this);
 		order_layout.setOnClickListener(this);
@@ -68,7 +72,7 @@ public class MainActivity extends Activity implements OnClickListener{
         go_resta_btn.setOnClickListener(this);
         go_statistic_btn.setOnClickListener(this);
         go_user_btn.setOnClickListener(this);
-        
+        logout_btn.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View arg0) {
@@ -108,6 +112,15 @@ public class MainActivity extends Activity implements OnClickListener{
 	    	  startActivity(intent5);
 	    	  Log.i("tag", "跳转到用户管理页面");
 	    	  break;
+	     case R.id.logout_btn:
+	    	 AVUser currentUser=AVUser.getCurrentUser();
+	    	 if(currentUser!=null){
+	    		 currentUser.logOut();
+	    	     Log.i("tag", "退出成功");
+	    		 Intent intent6=new Intent(this,LoginActivity.class);
+	    		 startActivity(intent6);
+	    	 }
+	    	 break;
 	    	  default:
 	    		  break;
 	   }

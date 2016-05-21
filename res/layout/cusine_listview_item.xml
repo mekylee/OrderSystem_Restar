@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        >
+    <ImageView
+        android:id="@+id/cusine_img"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/app_icon" />
+
+
+    <TextView
+        android:id="@+id/cusine_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/cusine_img"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        
+        android:layout_toRightOf="@+id/cusine_img"
+        android:text="菜品名" />
+
+    <TextView
+        android:id="@+id/price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cusine_name_tv"
+        android:layout_alignBottom="@+id/cusine_name_tv"
+        android:layout_marginLeft="25dp"
+        android:layout_toRightOf="@+id/cusine_name_tv"
+        android:paddingLeft="30dp"
+        android:text="菜品价格" />
+    
+    
+    <Button
+        android:id="@+id/cusine_delete_btn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/cusine_img"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/delete_btn_shape"
+        android:text="删除"
+        android:visibility="gone" />
+    </RelativeLayout>
+</RelativeLayout>

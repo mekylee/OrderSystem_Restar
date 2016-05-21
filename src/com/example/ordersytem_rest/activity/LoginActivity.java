@@ -147,7 +147,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 						startActivity(intent);
 					}else{
 						
-						Toast.makeText(LoginActivity.this, "邮箱地址不存在",Toast.LENGTH_SHORT).show();
+						Toast.makeText(LoginActivity.this, "密码错误",Toast.LENGTH_SHORT).show();
 						Log.e("tag", arg1.toString());
 					}
 				}

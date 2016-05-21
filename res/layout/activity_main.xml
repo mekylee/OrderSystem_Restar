@@ -25,8 +25,8 @@
             android:text="首页"
             android:textColor="@color/white"
             android:textSize="18sp" />
+        
 
-      
     </RelativeLayout>
     
     <RelativeLayout
@@ -228,6 +228,16 @@
             android:textSize="15sp" />
     </RelativeLayout>
 
-   
+    <Button
+        android:id="@+id/logout_btn"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/user_layout"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_shape"
+        android:text="退出"
+         android:layout_marginTop="30dp"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
 </RelativeLayout>

@@ -23,6 +23,6 @@ public class User extends AVUser {
     	return getString("usertype");
     }
     
-    
+   //由于LeanCloud保存的用户密码是隐藏的，不提供获取用户的密码，所以只能设置初始密码，再根据用户邮箱进行重置密码
     
 }

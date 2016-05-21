@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.avos.avoscloud.AVDeleteOption;
 import com.avos.avoscloud.AVException;
@@ -14,6 +16,7 @@ import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.SignUpCallback;
+import com.example.ordersystem_rest.customview.CleanableEditText;
 import com.example.ordersystem_rest.utils.AVService;
 import com.example.ordersystem_rest.utils.CustomDialog;
 import com.example.ordersystem_rest.utils.NetworkReceiver;
@@ -120,15 +123,14 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 			this.finish();
 			break;
 		case R.id.adduser_btn:
-			  View dialogView=LayoutInflater.from(UserActivity.this).inflate(R.layout.dialog, null);
-			  final EditText ed_username=(EditText) dialogView.findViewById(R.id.ed_username);
-			  ed_username.setHint("请输入邮箱地址");
-			 
+			  View dialogView=LayoutInflater.from(UserActivity.this).inflate(R.layout.dialog_add_user, null);
+			  final CleanableEditText ed_username=(CleanableEditText) dialogView.findViewById(R.id.ed_username);
+			  final CleanableEditText ed_password=(CleanableEditText)dialogView.findViewById(R.id.ed_password);
 			  sp_usertype=(Spinner)dialogView.findViewById(R.id.spinner_usertype);
 			  usertypeList=getUserType();   //获取用户类型列表
-			   sp_usertype.setAdapter(new ArrayAdapter<String>(UserActivity.this,android.R.layout.simple_spinner_dropdown_item, usertypeList));
-			   String type=(String) sp_usertype.getSelectedItem();
-			   Log.d("tag", "获取到的用户类型为:"+type);
+			  sp_usertype.setAdapter(new ArrayAdapter<String>(UserActivity.this,android.R.layout.simple_spinner_dropdown_item, usertypeList));
+			   String type=(String) sp_usertype.getSelectedItem(); //获取Spinner默认的item值
+			   Log.i("tag", "获取到的用户类型为:"+type);
 			   //获取下拉列表的数据
 			   sp_usertype.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -136,7 +138,7 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 				public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 					// TODO Auto-generated method stub
 					user_type=(String) sp_usertype.getSelectedItem();
-					Log.d("tag", "新增的用户类型为："+user_type);
+					Log.i("tag", "新增的用户类型为："+user_type);
 					//如果选择的是顾客，为顾客分配顾客角色；如果选择的是经理，为经理分配角色；如果选择的是服务员，为经理分配经理角色
 				}
 
@@ -154,26 +156,39 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 				
 				@Override
 				public void onClick(DialogInterface arg0, int arg1) {
-					// TODO Auto-generated method stub
-					AVService.createUser(ed_username.getText().toString(),user_type,new SaveCallback() {
+					final String username=ed_username.getText().toString();
+					final String password=ed_password.getText().toString();
+					if(isEmailVerified(username)==false||username.isEmpty()==true){
+						Log.i("tag","邮箱格式不正确");
+						Toast.makeText(UserActivity.this, "邮箱地址不正确", Toast.LENGTH_SHORT).show();
+					}else if(password.length()<6||password.length()>16){
+						Log.i("tag","密码长度不正确");
+						Toast.makeText(UserActivity.this, "密码长度应为6-16位", Toast.LENGTH_SHORT).show();
+					}else{
 						
+					// TODO Auto-generated method stub
+					AVService.createUser(username,password,user_type,new SaveCallback() {
 						@Override
 						public void done(AVException arg0) {
 							// TODO Auto-generated method stub
 							if(arg0==null){
-								Log.d("tag", "创建成功---新的用户为："+ed_username.getText().toString());
 								//更新ui
 								//MenuAdapter adapter=(MenuAdapter) list_view.getAdapter();
 								User user =new User();
-								user.setUsername(ed_username.getText().toString());
+								user.setEmail(username);
+								user.setUsername(username);
+								user.setPassword(password);
 								user.setUserType(user_type);
 								users.add(user);
 								userAdapter.notifyDataSetChanged();
+								Log.d("tag", "创建成功---新的用户为："+ed_username.getText().toString());
 							}else{
-								Log.d("修改失败：", arg0.toString());
+								Toast.makeText(UserActivity.this, "创建失败，该邮箱已被占用", Toast.LENGTH_SHORT).show();
+								Log.i("创建用户失败：", arg0.toString());
 							}
 						}
 					});
+					}
 				}
 			})
 			   .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -205,15 +220,14 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 	public void onItemClick(AdapterView<?> parent, View view, final int position,
 			long id) {
 		//获取当前点击的Item的内容
-	
 	    final User user=(User)listview.getItemAtPosition(position);
-	  //Log.d("tag",listview.getItemAtPosition(position).toString());
+	    Log.i("tag",listview.getItemAtPosition(position).toString());
 		String username = user.getString("email");
-	    final String usertype=user.getString("usertype");
+	    final String usertype=user.getString("usertype");  //初始用户类型
 		//Toast.makeText(UserActivity.this, "获取到的用户名为："+username+" "+"类型为："+usertype,Toast.LENGTH_SHORT).show();
-		Log.d("tag","获取到的用户名为"+username+""+"类型为："+usertype );
+		Log.i("tag","获取到的用户名为"+username+""+"类型为："+usertype );
 		   //通过LayoutInflater来加载一个xml布局作为一个View对象
-		   View dialogView=LayoutInflater.from(UserActivity.this).inflate(R.layout.dialog, null);
+		   View dialogView=LayoutInflater.from(UserActivity.this).inflate(R.layout.dialog_edit_user, null);
 		   final EditText ed_username=(EditText) dialogView.findViewById(R.id.ed_username);
 		   final Spinner sp_usertype=(Spinner)dialogView.findViewById(R.id.spinner_usertype);
 		   ed_username.setText(username);
@@ -226,9 +240,9 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 					int position, long id) {
 				// TODO Auto-generated method stub
 				//获取到所选择的内容
-				user_type=(String) sp_usertype.getItemAtPosition(position);
-				Toast.makeText(UserActivity.this,"选择后的用户类型为："+user_type,Toast.LENGTH_SHORT);
-				Log.d("tag", "选择后的用户类型为："+usertype);
+				user_type=(String) sp_usertype.getSelectedItem();
+				Toast.makeText(UserActivity.this,"修改后的用户类型为："+user_type,Toast.LENGTH_SHORT).show();
+				Log.d("tag", "选择后的用户类型为："+user_type);
 			}
 
 			@Override
@@ -246,29 +260,34 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 			
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
-				
-					AVService.createOrUpdateUser(user.getObjectId(), ed_username.getText().toString(), usertype, new SaveCallback() {
+				String username=ed_username.getText().toString();
+				if(isEmailVerified(username)==false ||username.isEmpty()==true){
+					Toast.makeText(UserActivity.this, "邮箱地址格式不正确", Toast.LENGTH_SHORT).show();
+					Log.i("tag", "邮箱地址格式不正确：");
+				}else{
+					AVService.createOrUpdateUser(user.getObjectId(), username, user_type, new SaveCallback() {
 						
 						@Override
 						public void done(AVException arg0) {
 							// TODO Auto-generated method stub
 							if(arg0==null){
-								Log.d("tag", "修改用户成功");
+							
 							//	Toast.makeText(UserActivity.this, "修改成功,修改后的用户名为："+user.getEmail(), Toast.LENGTH_SHORT).show();
 							   //更新ui
 								users.get(position).setEmail(ed_username.getText().toString());
-								Log.d("tag", "修改后的用户名为："+users.get(position).getEmail());
+								Log.i("tag", "修改后的用户名为："+users.get(position).getEmail());
 							
-						       // users.get(position).setUsername(ed_username.getText().toString());
-						    	//Log.d("tag", "修改后的邮箱地址为："+users.get(position).getUsername());
+						        users.get(position).setUsername(ed_username.getText().toString());
+						    	Log.i("tag", "修改后的邮箱地址为："+users.get(position).getUsername());
 								userAdapter.notifyDataSetChanged();
 							}else{
-								Log.d("tag", "修改失败"+arg0.toString());
+								Log.i("tag", "修改用户失败"+arg0.toString());
 							}
 						}
 					});
 				}
 				
+			}
 			}
 		)
 		   .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -283,27 +302,15 @@ public class UserActivity extends Activity implements OnClickListener,OnItemClic
 		
 	}
 	
-	/**
-	 * 新增新用户
+	/*
+	 * 判断邮箱地址是否正确
 	 */
-	public AVUser addUser(String email,String password){
-		 AVUser user=new AVUser();
-	     user.setUsername(email);
-	     user.setEmail(email);
-	     user.setPassword(password);
-	     user.signUpInBackground(new SignUpCallback() {
-			
-			@Override
-			public void done(AVException arg0) {
-				// TODO Auto-generated method stub
-				if(arg0==null){
-					//更新ListView
-				}else{
-					Log.e("error","添加失败:"+arg0.toString());
-				}
-			}
-		});
-	     return user;
+	public boolean isEmailVerified(String email){
+		String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|"
+	   	 		+ "(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+	   	 Pattern p = Pattern.compile(str);
+	   	 Matcher m = p.matcher(email);
+		 return m.matches();
 	}
 	/*
 	 * 为用户分配角色

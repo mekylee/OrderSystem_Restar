@@ -35,7 +35,7 @@
            android:background="@drawable/left_arrow" />
        
        <Button
-           android:id="@+id/editcusine_btn"
+           android:id="@+id/addcusine_btn"
            android:layout_width="50dp"
            android:layout_height="30dp"
            android:layout_alignBaseline="@+id/txt_topbar"
@@ -56,5 +56,15 @@
            android:layout_width="wrap_content"
            
        />
+       
+        <TextView
+        android:id="@android:id/empty"
+        android:layout_below="@id/manage_cusine_top_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:padding="20dp"
+        android:text="暂无菜品数据" />
+       
 
 </RelativeLayout>
