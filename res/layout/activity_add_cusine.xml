@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/manage_menu_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/txt_topbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="新增菜品"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/add_cusine_back_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignBaseline="@+id/txt_topbar"
+            android:layout_alignBottom="@+id/txt_topbar"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/left_arrow" />
+
+        
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp" >
+
+        <com.example.ordersystem_rest.customview.CleanableEditText
+            android:id="@+id/cuisne_name_ed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="37dp"
+            android:ems="10"
+            android:maxLength="10"
+            android:text="菜单名称" >
+
+            <requestFocus />
+        </com.example.ordersystem_rest.customview.CleanableEditText>
+
+        <ImageButton
+            android:id="@+id/uploadCusineImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/cuisne_name_ed"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="38dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/unload_icon"
+            android:text="上传菜品图片" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/cuisne_name_ed"
+            android:layout_alignTop="@+id/uploadCusineImage"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_launcher" />
+
+        <com.example.ordersystem_rest.customview.CleanableEditText
+            android:id="@+id/cuisne_price_ed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/cuisne_name_ed"
+            android:layout_below="@+id/cuisne_name_ed"
+            android:layout_marginTop="14dp"
+            android:inputType="number"
+            android:ems="10"
+            android:text="菜单价格" />
+
+        <Spinner
+            android:id="@+id/cusine_type_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/cuisne_price_ed"
+            android:layout_alignRight="@+id/cuisne_price_ed"
+            android:layout_below="@+id/cuisne_price_ed"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/button1"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/cusine_type_spinner"
+            android:layout_alignRight="@+id/imageView1"
+            android:layout_below="@+id/cusine_type_spinner"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_shape"
+            android:text="确定" />
+
+    </RelativeLayout>
+
+</LinearLayout>

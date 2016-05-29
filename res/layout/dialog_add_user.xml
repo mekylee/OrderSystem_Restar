@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" >
+
+        <com.example.ordersystem_rest.customview.CleanableEditText
+            android:id="@+id/ed_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:hint="邮箱地址"
+            android:inputType="textEmailAddress" />
+
+        <com.example.ordersystem_rest.customview.CleanableEditText
+            android:id="@+id/ed_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/ed_username"
+            android:layout_below="@+id/ed_username"
+            android:layout_marginTop="19dp"
+            android:hint="密码"
+            android:ems="10"
+            android:maxLength="16"
+            android:inputType="textPassword" >
+
+            <requestFocus />
+        </com.example.ordersystem_rest.customview.CleanableEditText>
+
+        <Spinner
+            android:id="@+id/spinner_usertype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ed_password"
+            android:layout_alignRight="@+id/ed_password"
+            android:layout_below="@+id/ed_password"
+            android:layout_marginTop="25dp" />
+      
+    </RelativeLayout>
+
+</LinearLayout>
